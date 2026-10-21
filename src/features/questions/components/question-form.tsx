@@ -66,9 +66,10 @@ export function QuestionForm({ onSubmit }: { onSubmit: (input: NewQuestion) => P
   }
 
   return (
-    <Card className="p-0">
-      <form onSubmit={submit} className="flex flex-col gap-3 p-4">
-        <label htmlFor={textId} className="text-sm font-medium text-muted">
+    <Card className="relative overflow-hidden">
+      <span aria-hidden className="bg-brand-gradient absolute inset-x-0 top-0 h-0.5" />
+      <form onSubmit={submit} className="flex flex-col gap-3 pt-1">
+        <label htmlFor={textId} className="font-display text-xs tracking-[0.2em] text-accent uppercase">
           Sua pergunta
         </label>
         <textarea
@@ -84,7 +85,7 @@ export function QuestionForm({ onSubmit }: { onSubmit: (input: NewQuestion) => P
           maxLength={LIMITS.textMax}
           rows={3}
           placeholder="O que você quer perguntar?"
-          className="w-full resize-none rounded-xl border border-border bg-bg px-3 py-2.5 text-base leading-relaxed placeholder:text-muted/60 focus:border-accent focus:outline-none"
+          className="w-full resize-none rounded-xl border border-border bg-bg px-3.5 py-3 text-base leading-relaxed placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgb(191_64_255/0.18)] focus:outline-none transition-[border-color,box-shadow]"
         />
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted">
@@ -110,10 +111,10 @@ export function QuestionForm({ onSubmit }: { onSubmit: (input: NewQuestion) => P
           maxLength={LIMITS.authorMax}
           placeholder="Seu nome (opcional)"
           autoComplete="name"
-          className="h-11 w-full rounded-xl border border-border bg-bg px-3 text-base placeholder:text-muted/60 focus:border-accent focus:outline-none"
+          className="h-12 w-full rounded-xl border border-border bg-bg px-3.5 text-base placeholder:text-muted/60 focus:border-accent focus:shadow-[0_0_0_3px_rgb(191_64_255/0.18)] focus:outline-none transition-[border-color,box-shadow]"
         />
 
-        <Button type="submit" size="lg" disabled={!canSubmit}>
+        <Button type="submit" size="lg" disabled={!canSubmit} className="h-13 w-full tracking-wide uppercase">
           {status.kind === "sending"
             ? "Enviando…"
             : cooldownLeft > 0
@@ -124,7 +125,7 @@ export function QuestionForm({ onSubmit }: { onSubmit: (input: NewQuestion) => P
         <p
           role="status"
           className={cn(
-            "min-h-5 text-sm",
+            "-mt-1 min-h-5 text-center text-sm",
             status.kind === "error" ? "text-danger" : "text-success",
             status.kind !== "error" && status.kind !== "sent" && "invisible",
           )}

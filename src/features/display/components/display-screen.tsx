@@ -31,7 +31,7 @@ export function DisplayScreen() {
     <main className="grid h-dvh grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-[5vh] overflow-hidden p-[5vh]">
       <aside className="flex min-h-0 flex-col justify-between gap-[4vh]">
         <header>
-          <h1 className="text-[6vh] leading-[1.05] font-bold tracking-tight">
+          <h1 className="font-display text-[7vh] leading-[1.02] tracking-tight uppercase">
             Mural de <span className="text-accent">perguntas</span>
           </h1>
           <p className="mt-[1.5vh] text-[2.6vh] text-muted">Escaneie, pergunte e vote nas perguntas dos outros.</p>

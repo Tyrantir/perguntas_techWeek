@@ -5,7 +5,8 @@ type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-accent-fg hover:bg-accent-strong",
+  primary:
+    "bg-brand-gradient text-accent-fg shadow-[0_8px_24px_-8px_rgb(138_0_196/0.6)] hover:brightness-110 active:brightness-95",
   secondary: "bg-surface-2 text-fg border border-border hover:border-accent/60",
   ghost: "text-muted hover:text-fg hover:bg-surface-2",
   danger: "bg-danger/15 text-danger border border-danger/40 hover:bg-danger/25",
@@ -27,9 +28,9 @@ export function Button({ variant = "primary", size = "md", className, type = "bu
     <button
       type={type}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors",
+        "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition-[filter,colors,border-color]",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
-        "disabled:pointer-events-none disabled:opacity-50",
+        "disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none",
         variants[variant],
         sizes[size],
         className,

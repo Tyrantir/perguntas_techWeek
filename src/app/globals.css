@@ -1,27 +1,41 @@
 @import "tailwindcss";
 
+/* Paleta e tipografia da TechWeek 2026 (techweekfb.com.br/TW26). */
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-anton), "Impact", sans-serif;
 
-  --color-bg: #0f0f11;
-  --color-surface: #18181b;
-  --color-surface-2: #222226;
-  --color-border: #2e2e33;
-  --color-fg: #f4f4f5;
-  --color-muted: #a1a1aa;
-  --color-accent: #e8835c;
-  --color-accent-strong: #f09572;
-  --color-accent-fg: #1a0f0a;
-  --color-danger: #f87171;
+  --color-bg: #000;
+  --color-surface: #0d0d0d;
+  --color-surface-2: #141414;
+  --color-border: #1f1f1f;
+  --color-fg: #fff;
+  --color-muted: #a3a3a3;
+  --color-accent: #bf40ff;
+  --color-accent-strong: #8a00c4;
+  --color-accent-fg: #fff;
+  --color-danger: #ff7875;
   --color-success: #4ade80;
 }
 
 @layer base {
   html {
     color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     @apply bg-bg text-fg font-sans antialiased;
   }
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(90deg, var(--color-accent-strong), var(--color-accent));
+}
+
+/* Brilho roxo no topo, igual ao hero do site. */
+@utility bg-brand-glow {
+  background-image:
+    radial-gradient(120% 60% at 50% -10%, rgb(138 0 196 / 0.28), transparent 60%),
+    linear-gradient(180deg, #050505, #000);
 }

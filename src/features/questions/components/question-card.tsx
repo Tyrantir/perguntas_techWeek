@@ -19,11 +19,12 @@ export function QuestionCard({ question, voted, voting, spotlight, onVote }: Pro
   return (
     <li
       className={cn(
-        "flex gap-3 rounded-2xl border bg-surface p-3 transition-opacity",
-        spotlight ? "border-accent shadow-[0_0_0_1px_var(--color-accent)]" : "border-border",
+        "relative flex gap-3 overflow-hidden rounded-2xl border bg-surface p-3.5 transition-[opacity,border-color]",
+        spotlight ? "border-accent-strong shadow-[0_0_24px_rgb(94_0_135/0.55)]" : "border-border",
         answered && "opacity-50",
       )}
     >
+      {spotlight && <span aria-hidden className="bg-brand-gradient absolute inset-x-0 top-0 h-0.5" />}
       <VoteButton
         votes={question.votes}
         voted={voted}
@@ -32,9 +33,9 @@ export function QuestionCard({ question, voted, voting, spotlight, onVote }: Pro
       />
       <div className="flex min-w-0 flex-1 flex-col gap-1.5 py-0.5">
         {spotlight && (
-          <span className="text-xs font-semibold tracking-wide text-accent uppercase">Respondendo agora</span>
+          <span className="font-display text-xs tracking-[0.2em] text-accent uppercase">Respondendo agora</span>
         )}
-        <p className="text-[15px] leading-snug break-words whitespace-pre-line">{question.text}</p>
+        <p className="text-base leading-snug break-words whitespace-pre-line">{question.text}</p>
         <p className="flex flex-wrap items-center gap-x-2 text-xs text-muted">
           <span>{question.author ?? "Anônimo"}</span>
           <span aria-hidden>·</span>
