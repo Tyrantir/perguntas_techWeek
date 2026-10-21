@@ -3,6 +3,25 @@ import { Redis } from "@upstash/redis";
 import type { RedisConfig } from "@/core/config/env";
 import type { KvStore, ScoredMember } from "./types";
 
+/**
+ * Sem deserialização automática, a Upstash devolve o HGETALL cru do Redis:
+ * uma lista plana [campo, valor, campo, valor, ...] em vez de um objeto.
+ */
+function toHash(raw: unknown): Record<string, string> | null {
+  if (raw === null || raw === undefined) return null;
+  if (Array.isArray(raw)) {
+    if (raw.length === 0) return null;
+    const hash: Record<string, string> = {};
+    for (let i = 0; i + 1 < raw.length; i += 2) hash[String(raw[i])] = String(raw[i + 1]);
+    return hash;
+  }
+  if (typeof raw === "object") {
+    const entries = Object.entries(raw as Record<string, unknown>);
+    return entries.length ? Object.fromEntries(entries.map(([k, v]) => [k, String(v)])) : null;
+  }
+  return null;
+}
+
 export function createRedisStore(config: RedisConfig): KvStore {
   // Sem deserialização automática: os hashes guardam strings e o domínio faz o parse.
   const redis = new Redis({ ...config, automaticDeserialization: false });
@@ -26,13 +45,13 @@ export function createRedisStore(config: RedisConfig): KvStore {
       await redis.hset(key, fields);
     },
     async hgetall(key) {
-      return redis.hgetall<Record<string, string>>(key);
+      return toHash(await redis.hgetall(key));
     },
     async hgetallMany(keys) {
       if (keys.length === 0) return [];
       const pipe = redis.pipeline();
       for (const key of keys) pipe.hgetall(key);
-      return pipe.exec<(Record<string, string> | null)[]>();
+      return (await pipe.exec<unknown[]>()).map(toHash);
     },
 
     async sadd(key, member) {
