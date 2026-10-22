@@ -1,0 +1,488 @@
+.root {
+  --bg: #05070a;
+  --green: #00ff6a;
+  --gold: #ffd400;
+  --red: #ff2d55;
+  --dim: #7d8a96;
+  --ops: var(--font-ops), "Impact", sans-serif;
+  --mono: var(--font-chakra), ui-monospace, monospace;
+
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at 50% -10%, #0d3b22 0%, var(--bg) 60%);
+  color: #e8f5ec;
+  font-family: var(--mono);
+  cursor: crosshair;
+}
+
+/* Monitor CRT: linhas de varredura por cima de tudo. */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0 1px, transparent 1px 3px);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 255, 106, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 106, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 70%);
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.back {
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 6px 14px;
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  transition: background 0.2s, color 0.2s;
+}
+
+.back:hover {
+  background: var(--green);
+  color: var(--bg);
+}
+
+.ping {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+.ping i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: blink 1.2s infinite;
+}
+
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 56px 16px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.kicker {
+  color: var(--green);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+.kicker::after {
+  content: "_";
+  animation: blink 1s steps(1) infinite;
+}
+
+.title {
+  position: relative;
+  font-family: var(--ops);
+  font-size: clamp(2.6rem, 10vw, 6.5rem);
+  line-height: 0.95;
+  margin: 16px 0;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(0, 255, 106, 0.6);
+}
+
+/* Glitch: duas cópias do título deslocadas em verde e amarelo. */
+.title::before,
+.title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.title::before {
+  color: var(--green);
+  animation: glitch 3s infinite linear alternate-reverse;
+  clip-path: inset(0 0 60% 0);
+}
+
+.title::after {
+  color: var(--gold);
+  animation: glitch 2.4s infinite linear alternate;
+  clip-path: inset(55% 0 0 0);
+}
+
+.sub {
+  max-width: 560px;
+  margin: 0 auto;
+  color: #b7c9bd;
+  font-size: 1.05rem;
+}
+
+.reticle {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 40px auto 0;
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  animation: spin 8s linear infinite;
+}
+
+.reticle::before,
+.reticle::after {
+  content: "";
+  position: absolute;
+  background: var(--green);
+}
+
+.reticle::before {
+  left: 50%;
+  top: -14px;
+  bottom: -14px;
+  width: 2px;
+  transform: translateX(-50%);
+}
+
+.reticle::after {
+  top: 50%;
+  left: -14px;
+  right: -14px;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.reticle span {
+  position: absolute;
+  inset: 40px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--red);
+}
+
+.main {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.stat {
+  border: 1px solid rgba(0, 255, 106, 0.4);
+  background: rgba(0, 255, 106, 0.05);
+  padding: 18px;
+  text-align: center;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+.stat strong {
+  display: block;
+  font-family: var(--ops);
+  font-size: 2.4rem;
+  color: var(--gold);
+  text-shadow: 0 0 14px rgba(255, 212, 0, 0.5);
+}
+
+.stat span {
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+}
+
+.feed {
+  margin: 32px 0 0 auto;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  border-right: 3px solid var(--red);
+  font-size: 0.85rem;
+  opacity: 0;
+  animation: feedIn 0.4s ease-out forwards;
+}
+
+.feedRow b {
+  color: var(--green);
+}
+
+.feedRow em {
+  font-style: normal;
+  font-size: 0.7rem;
+  color: #fff;
+  border: 1px solid #fff4;
+  padding: 1px 6px;
+}
+
+.feedRow span {
+  color: #ff7a8f;
+}
+
+.scroll {
+  text-align: center;
+  margin-top: 48px;
+  color: var(--green);
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+  animation: blink 1.6s infinite;
+}
+
+/* Rodapé: Hall da Fama. */
+.footer {
+  position: relative;
+  border-top: 2px solid var(--green);
+  box-shadow: 0 -10px 40px rgba(0, 255, 106, 0.15);
+  background: linear-gradient(180deg, #071a10 0%, var(--bg) 100%);
+  padding: 48px 16px 32px;
+}
+
+.footerTitle {
+  max-width: 1100px;
+  margin: 0 auto 28px;
+  font-family: var(--ops);
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  text-transform: uppercase;
+}
+
+.footerTitle span {
+  color: var(--green);
+}
+
+.moments {
+  list-style: none;
+  padding: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+}
+
+.moment {
+  position: relative;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 255, 106, 0.25);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.moment:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 0 24px rgba(255, 212, 0, 0.25);
+}
+
+.moment h3 {
+  font-family: var(--ops);
+  font-size: 1.25rem;
+  margin: 4px 0 8px;
+}
+
+.moment p {
+  color: #b7c9bd;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.frame {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  margin-bottom: 12px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(0, 255, 106, 0.18), transparent 70%),
+    #020403;
+  border: 1px solid rgba(0, 255, 106, 0.4);
+  overflow: hidden;
+}
+
+.frame svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Cantos de HUD no quadro da imagem. */
+.frame::before,
+.frame::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gold);
+}
+
+.frame::before {
+  top: 6px;
+  left: 6px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.frame::after {
+  bottom: 6px;
+  right: 6px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.frameTag {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-family: var(--ops);
+  color: var(--green);
+  font-size: 0.9rem;
+}
+
+.year {
+  color: var(--gold) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.fillGold {
+  fill: var(--gold);
+}
+
+.fillGreen {
+  fill: var(--green);
+  opacity: 0.7;
+}
+
+.fillRed {
+  fill: var(--red);
+}
+
+.strokeGold {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 3;
+}
+
+.strokeGreen {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 2;
+}
+
+.svgText,
+.svgTextSmall {
+  fill: #fff;
+  font-family: var(--ops);
+  text-anchor: middle;
+}
+
+.svgText {
+  font-size: 22px;
+}
+
+.svgTextSmall {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.credit {
+  max-width: 1100px;
+  margin: 48px auto 0;
+  padding-top: 20px;
+  border-top: 1px dashed rgba(0, 255, 106, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: var(--dim);
+  font-size: 0.9rem;
+}
+
+.credit span {
+  font-family: var(--ops);
+  color: var(--green);
+  font-size: 1.4rem;
+}
+
+.credit strong {
+  color: var(--gold);
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes feedIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes glitch {
+  0%,
+  88%,
+  100% {
+    transform: none;
+  }
+  90% {
+    transform: translate(-4px, 2px);
+  }
+  93% {
+    transform: translate(4px, -2px);
+  }
+  96% {
+    transform: translate(-2px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root *,
+  .root *::before,
+  .root *::after {
+    animation: none !important;
+  }
+
+  .feedRow {
+    opacity: 1;
+  }
+}

@@ -19,6 +19,13 @@ export const pages: PageEntry[] = [
     description: "Landing urbana e grunge, amarelo e preto, do encontro de jovens de 31/10 às 19h00.",
     accent: "#ffe500",
   },
+  {
+    slug: "luiz-correia",
+    author: "Luiz Correia",
+    title: "Brasil no Servidor",
+    description: "Hall da Fama gamer do Counter-Strike brasileiro, com os momentos históricos no rodapé.",
+    accent: "#00ff6a",
+  },
 ];
 
 export function pageHref(slug: string) {
