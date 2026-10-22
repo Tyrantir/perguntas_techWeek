@@ -11,7 +11,15 @@ export type PageEntry = {
   accent: string;
 };
 
-export const pages: PageEntry[] = [];
+export const pages: PageEntry[] = [
+  {
+    slug: "lucas",
+    author: "Lucas",
+    title: "Jesus na Praça",
+    description: "Landing urbana e grunge, amarelo e preto, do encontro de jovens de 31/10 às 19h00.",
+    accent: "#ffe500",
+  },
+];
 
 export function pageHref(slug: string) {
   return `/paginas/${slug}`;

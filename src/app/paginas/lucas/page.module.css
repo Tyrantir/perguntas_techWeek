@@ -1,0 +1,354 @@
+.root {
+  --yellow: #ffe500;
+  --black: #0a0a0a;
+  --grunge: var(--font-dirt), "Impact", sans-serif;
+  --marker: var(--font-marker), cursive;
+
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: var(--black);
+  color: #fff;
+  font-family: var(--font-sans);
+}
+
+/* Granulado de papel fotocopiado por cima de tudo. */
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: calc(1rem + env(safe-area-inset-top)) 1rem 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.back {
+  color: var(--yellow);
+}
+
+.back:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.navTag {
+  border: 2px solid var(--yellow);
+  padding: 0.2rem 0.5rem;
+  color: var(--yellow);
+  transform: rotate(2deg);
+}
+
+.hero {
+  position: relative;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+}
+
+.kicker {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 0.3rem 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.25rem;
+  font-family: var(--grunge);
+  font-size: clamp(4.5rem, 22vw, 11rem);
+  line-height: 0.85;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.titleSmall {
+  font-family: var(--marker);
+  font-size: 0.35em;
+  line-height: 1.2;
+  color: #fff;
+  transform: rotate(-4deg) translateX(0.4em);
+}
+
+.titleBlock {
+  align-self: flex-start;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 0.05em 0.12em 0;
+  clip-path: polygon(1% 4%, 98% 0, 100% 92%, 3% 100%);
+}
+
+.scrawl {
+  margin-top: 1.5rem;
+  font-family: var(--marker);
+  font-size: clamp(1.5rem, 6vw, 2.25rem);
+  transform: rotate(-3deg);
+}
+
+/* Carimbo da data, torto, no canto. */
+.stamp {
+  position: absolute;
+  right: 1rem;
+  top: 2.5rem;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: clamp(6rem, 24vw, 9rem);
+  aspect-ratio: 1;
+  border: 4px dashed var(--yellow);
+  border-radius: 50%;
+  color: var(--yellow);
+  font-family: var(--grunge);
+  font-size: clamp(1.5rem, 6vw, 2.4rem);
+  line-height: 1;
+  text-align: center;
+  transform: rotate(14deg);
+  opacity: 0.9;
+}
+
+.stamp small {
+  display: block;
+  font-size: 0.55em;
+}
+
+/* Faixa de fita rolando, atravessada na página. */
+.tape {
+  overflow: hidden;
+  background: var(--yellow);
+  color: var(--black);
+  transform: rotate(-2deg) scale(1.05);
+  border-block: 4px solid var(--black);
+  box-shadow: 0 0 0 4px var(--yellow);
+}
+
+.tapeTrack {
+  display: flex;
+  width: max-content;
+  padding: 0.6rem 0;
+  font-family: var(--grunge);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  white-space: pre;
+  animation: tape 40s linear infinite;
+}
+
+@keyframes tape {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tapeTrack {
+    animation: none;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 5rem 1rem calc(4rem + env(safe-area-inset-bottom));
+}
+
+.sectionLabel {
+  font-family: var(--marker);
+  font-size: 1.75rem;
+  color: var(--yellow);
+  margin-bottom: 1rem;
+}
+
+.clock {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.clockCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.25rem;
+  border: 3px solid #fff;
+  background: repeating-linear-gradient(-45deg, transparent 0 6px, rgb(255 229 0 / 0.06) 6px 12px);
+}
+
+.clockCell:nth-child(odd) {
+  transform: rotate(-1.5deg);
+}
+
+.clockCell:nth-child(even) {
+  transform: rotate(1.5deg);
+}
+
+.clockValue {
+  font-family: var(--grunge);
+  font-size: clamp(2.25rem, 11vw, 4.5rem);
+  line-height: 1;
+  color: var(--yellow);
+}
+
+.clockLabel {
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.live {
+  font-family: var(--grunge);
+  font-size: clamp(2rem, 9vw, 3.5rem);
+  color: var(--yellow);
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  padding: 1.5rem 1.25rem;
+  background: var(--yellow);
+  color: var(--black);
+  clip-path: polygon(0 2%, 100% 0, 98% 100%, 2% 97%);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.card:nth-child(2) {
+  background: #fff;
+  transform: rotate(1deg);
+}
+
+.card:nth-child(3) {
+  transform: rotate(-1deg);
+}
+
+.cardTag {
+  font-family: var(--marker);
+  font-size: 1.25rem;
+}
+
+.cardTitle {
+  margin: 0.25rem 0 0.5rem;
+  font-family: var(--grunge);
+  font-size: 2.25rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.info dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 3px solid var(--yellow);
+}
+
+@media (min-width: 640px) {
+  .info dl {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.info dl > div {
+  padding: 1.25rem 1rem;
+  outline: 1.5px solid var(--yellow);
+}
+
+.info dt {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+}
+
+.info dd {
+  margin-top: 0.25rem;
+  font-family: var(--grunge);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.ctaText {
+  font-family: var(--grunge);
+  font-size: clamp(2.5rem, 12vw, 5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.ctaText span {
+  color: var(--yellow);
+}
+
+.ctaButton {
+  padding: 1rem 1.75rem;
+  background: var(--yellow);
+  color: var(--black);
+  border: 3px solid var(--black);
+  box-shadow: 6px 6px 0 #fff;
+  font-family: var(--grunge);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transform: rotate(-1deg);
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+}
+
+.ctaButton:hover {
+  transform: rotate(-1deg) translate(2px, 2px);
+  box-shadow: 4px 4px 0 #fff;
+}
+
+.ctaButton:active {
+  transform: rotate(-1deg) translate(6px, 6px);
+  box-shadow: none;
+}
+
+.footer {
+  padding: 1.5rem 1rem calc(1.5rem + env(safe-area-inset-bottom));
+  background: var(--yellow);
+  color: var(--black);
+  font-family: var(--grunge);
+  text-align: center;
+  text-transform: uppercase;
+}
