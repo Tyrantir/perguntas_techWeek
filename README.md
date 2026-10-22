@@ -4,7 +4,9 @@ Mural de perguntas ao vivo para oficinas. Participantes escaneiam um QR code, ma
 
 | Rota | Quem usa | O que faz |
 |---|---|---|
-| `/` | participantes (celular) | envia perguntas, vota, abas "Mais votadas" e "Recentes" |
+| `/` | todos | home: link para o mural e lista das páginas criadas na oficina |
+| `/mural` | participantes (celular) | envia perguntas, vota, abas "Mais votadas" e "Recentes" |
+| `/paginas/<slug>` | todos | páginas criadas por prompt, uma por pessoa (veja `AGENTS.md`) |
 | `/telao` | projetor 16:9 | QR code, contadores, "Respondendo agora" e top 7 |
 | `/admin` | moderador | destacar, marcar como respondida, reabrir, ocultar, zerar mural |
 
@@ -21,7 +23,8 @@ npm run dev
 
 Pronto: sem variáveis de ambiente o app usa um **store em memória** e o PIN do admin é **`1234`**. Abra:
 
-- http://localhost:3000 (participante)
+- http://localhost:3000 (home)
+- http://localhost:3000/mural (participante)
 - http://localhost:3000/telao
 - http://localhost:3000/admin
 
@@ -48,7 +51,7 @@ O `test:api` precisa de bash e curl (no Windows, Git Bash). Para outro endereço
 | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | em produção* | injetadas pela integração Upstash da Vercel |
 | `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | em produção* | alternativa, para banco criado direto na Upstash |
 | `MURAL_PREFIX` | não | prefixo das chaves no Redis (padrão `mural`); permite várias oficinas no mesmo banco |
-| `NEXT_PUBLIC_APP_URL` | não | URL do QR code do telão (padrão: origem atual). Embutida no build. |
+| `NEXT_PUBLIC_APP_URL` | não | URL base do QR code do telão (padrão: origem atual); o QR aponta para `<base>/mural`. Embutida no build. |
 
 \* Um dos dois pares. Sem Redis em produção o app ainda sobe, mas com store em memória por instância, o que quebra na Vercel (cada request pode cair em outra instância). O log avisa.
 

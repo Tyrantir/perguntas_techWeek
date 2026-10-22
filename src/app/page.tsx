@@ -1,5 +1,5 @@
-import { ParticipantScreen } from "@/features/questions/components/participant-screen";
+import { HomeScreen } from "@/features/pages/components/home-screen";
 
 export default function HomePage() {
-  return <ParticipantScreen />;
+  return <HomeScreen />;
 }

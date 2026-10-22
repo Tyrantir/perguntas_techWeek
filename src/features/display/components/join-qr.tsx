@@ -3,13 +3,18 @@
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 
-/** QR para a página do participante: NEXT_PUBLIC_APP_URL se definida, senão a origem atual. */
+/** Base do QR: NEXT_PUBLIC_APP_URL se definida, senão a origem atual. O QR aponta para o mural. */
+const muralUrl = (base: string) => `${base.replace(/\/+$/, "")}/mural`;
+
+/** QR para a página do participante. */
 export function JoinQr() {
-  const [url, setUrl] = useState<string | null>(process.env.NEXT_PUBLIC_APP_URL ?? null);
+  const [url, setUrl] = useState<string | null>(
+    process.env.NEXT_PUBLIC_APP_URL ? muralUrl(process.env.NEXT_PUBLIC_APP_URL) : null,
+  );
 
   // window só existe no cliente; resolver no efeito evita divergência com o HTML do servidor.
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_APP_URL) setUrl(window.location.origin);
+    if (!process.env.NEXT_PUBLIC_APP_URL) setUrl(muralUrl(window.location.origin));
   }, []);
 
   return (
