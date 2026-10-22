@@ -20,6 +20,20 @@ export const pages: PageEntry[] = [
     accent: "#ffe500",
   },
   {
+    slug: "bernardo",
+    author: "Bernardo",
+    title: "O Duelo",
+    description: "Placar gótico ao vivo de Palmeiras x Fluminense, semi da Libertadores, 21/10.",
+    accent: "#8b0a1a",
+  },
+  {
+    slug: "akira",
+    author: "Akira",
+    title: "O Diário das Perguntas",
+    description: "As perguntas do mural num jornal clássico em tons de cinza, com espaço pra escrever a resposta.",
+    accent: "#bdbcb8",
+  },
+  {
     slug: "luiz-correia",
     author: "Luiz Correia",
     title: "Brasil no Servidor",
